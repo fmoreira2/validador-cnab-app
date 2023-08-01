@@ -1,2 +1,7 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
+const { contextBridge } = require("electron");
+//import Toastify from "toastify-js";
+const Toastify = require("toastify-js");
+
+contextBridge.exposeInMainWorld("Toastify", {
+  toast: (options) => Toastify(options).showToast(),
+});

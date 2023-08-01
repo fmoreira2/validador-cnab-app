@@ -1,3 +1,7 @@
+/* @import "./node_modules/bootstrap/dist/css/bootstrap-utilities.min.css"; */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
 * {
   margin: 0;
   padding: 0;
@@ -36,8 +40,8 @@ body * {
 }
 
 #container {
-  width: 360px;
-  margin: 56px auto 0px;
+  width: 480px;
+  margin: 40px auto 0px;
   padding: 0 24px;
 }
 
@@ -103,9 +107,10 @@ ul {
   flex-direction: column;
   padding: 24px 0px;
   gap: 16px;
+  cursor: pointer;
 }
 
-ul li a {
+ul li input {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,13 +120,106 @@ ul li a {
   border-radius: 8px;
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  bottom: unset;
+}
 
+ul li input:hover {
+  background: var(--bg-link-color-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+/*ProgressBar*/
+#ProgressCnab {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#BarCnab {
+  width: 1%;
+  height: 30px;
+  background-color: rgb(150, 201, 220);
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+#qtdLinhas {
+  text-align: center;
+  font-size: 11px;
+}
+
+#pathArquivo {
+  text-align: left;
+  font-size: 11px;
+}
+
+.btn {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--bg-link-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #fff;
+}
+
+.btnDisabled {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--bg-link-color-hover);
+  border: 1.5px solid var(--text-color);
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: default;
   transition: background 0.2s;
 }
 
-ul li a:hover {
+.btn:hover {
   background: var(--bg-link-color-hover);
   border: 1.5px solid var(--text-color);
+}
+
+#GroupBtn {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0px;
+  font-size: 24px;
+}
+
+#GroupBtn button {
+  display: flex;
+  margin-right: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 20%;
+  transition: background 0.2s;
+}
+
+#GroupBtn button ion-icon{
+  /* display: flex; */
+  font-size: 24px;
+  align-items: center;
+  /* justify-content: center; */
+  margin-right: 10px;
+  
+  
+}
+
+#GroupBtn button:hover {
+  background: var(--bg-social-color-hover);
 }
 
 /*social links*/
@@ -149,6 +247,18 @@ ul li a:hover {
 
 footer {
   padding: 24px 0px;
+  text-align: center;
+  font-size: 10px;
+}
+
+#sobre {
+  padding: 5px 0px;
+  text-align: center;
+  font-size: 18px;
+}
+
+#sobreGithub {
+  padding: 5px 0px;
   text-align: center;
   font-size: 14px;
 }

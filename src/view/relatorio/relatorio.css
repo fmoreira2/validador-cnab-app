@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #fff;
+    --bg-url: url(./assets/bg-Mobile.jpg);
+    --border-color: #ffffff80;
+    --bg-link-color: rgba(255, 255, 255, 0.05);
+    --bg-link-color-hover: rgba(255, 255, 255, 0.1);
+    --bg-social-color-hover: rgba(255, 255, 255, 0.2);
+
+    --surface-color: rgba(255, 255, 255, 0.1);
+    --stroke-color: rgba(255, 255, 255, 0.5);
+}
+
+.light {
+    --text-color: black;
+    --bg-url: url(./assets/bg-Light.jpg);
+    --border-color: rgba(0, 0, 0, 0.5);
+    --bg-link-color: rgba(0, 0, 0, 0.05);
+    --bg-link-color-hover: rgba(0, 0, 0, 0.02);
+    --bg-social-color-hover: rgba(0, 0, 0, 0.1);
+
+}
+
+body {
+    background: var(--bg-url) no-repeat top center/cover;
+}
+
+body * {
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+}
