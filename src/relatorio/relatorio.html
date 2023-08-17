@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./relatorio.css" />
+    <title>Validador layout CNAB</title>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-body">
+            <div id="tituloRelatorio">
+                <a>Relatório do validador layout CNAB</a>
+                <button class="btn-primary" onclick="window.print()">
+                    <ion-icon name="print-outline"></ion-icon></button>
+            </div>
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <p class="titulo">Informações da analise:</p>
+                <p class="linha">Arquivo: <span id="nomeArquivo"></span></p>
+                <p class="linha">Banco: <span id="nomeBanco"></span></p>
+                <p class="linha">Empresa: <span id="nomeEmpresa"></span></p>
+                <p class="linha">Data: <span id="dataAnalise"></span></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <p class="titulo">Header:</p>
+                <table id="tabelaHeader"></table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <p class="titulo">Body:</p>
+                <table id="tabelaBody"></table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <p class="titulo">Trailler:</p>
+                <table id="tabelaTrailler"></table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./relatorio_400.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</html>

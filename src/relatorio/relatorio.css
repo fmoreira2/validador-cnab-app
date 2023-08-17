@@ -1,0 +1,88 @@
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+/* @import "../index.css"; */
+
+:root {
+    --text-color: #1f1f1f;
+    --bg-url: url(./assets/bg-Mobile.jpg);
+    --border-color: #ffffff80;
+    --bg-link-color: rgba(255, 255, 255, 0.05);
+    --bg-link-color-hover: rgba(255, 255, 255, 0.1);
+    --bg-social-color-hover: rgba(255, 255, 255, 0.2);
+    --switch-bg-url: url(./assets/moon-stars.svg);
+    --surface-color: rgba(255, 255, 255, 0.1);
+    --stroke-color: rgba(255, 255, 255, 0.5);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5cc;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* background-color: #f5f5f5; */
+}
+
+#tituloRelatorio {
+    display: inline;
+}
+
+#tituloRelatorio a {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#tituloRelatorio button {
+    font-size: 1rem;
+    border: 0;
+    border-radius: 10%;
+    margin-bottom: 1rem;
+}
+
+#tituloRelatorio button ion-icon {
+    font-size: 3rem;
+    border: 0;
+    color: #3f3f3fcc;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.card{
+    margin: 0.5rem;
+}
+
+.titulo {
+    margin-left: 10px;
+}
+
+.linha {
+    margin-left: 30px;
+}
+
+#tabelaHeader {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#tabelaBody {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#tabelaTrailler {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+@media print{
+    #tituloRelatorio button {
+        display: none;
+    }
+}

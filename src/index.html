@@ -5,11 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self'"/> -->
   <link rel="stylesheet" href="index.css" />
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" /> -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
   <title>Validador de arquivos Cnab</title>
 </head>
@@ -20,28 +19,41 @@
       <img src="./assets/logo.svg" alt="Logotipo">
       <p>Validador Cnab</p>
     </div>
-    <div id="switch">
+    <!-- <div id="switch">
       <button name="btnMode" onclick="toggleMode()"></button>
       <span></span>
+    </div> -->
+    <div class="radio">
+      <p>Selecione o layout do arquivo remessa:</p>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radio_rem_400" id="radio_rem_400_bmp" value="400_bmp"
+          checked>
+        <label class="form-check-label" for="radio_rem_400_bmp">400 BMP</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radio_rem_400" id="radio_rem_400_bradesco"
+          value="400_bradesco">
+        <label class="form-check-label" for="radio_rem_400_bradesco">400 Bradesco</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="radio_rem_400" id="radio_rem_400_paulista"
+          value="400_paulista">
+        <label class="form-check-label" for="radio_rem_400_paulista">400 Paulista</label>
+      </div>
     </div>
-    <ul>
-      <li>
-        <!-- <a href="#">Validar aquivo</a> -->
-        <div>
-          <label>
-            <span>Selecione um arquivo para ser analisado.</span>
-            <!-- <input id="cnab" type="file" accept=".text, .rem, .ret" class="hidden" /> -->
-            <input id="cnab" type="file" class="form-control hidden" accept=".text, .rem, .ret"
-              aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-          </label>
-        </div>
 
+    <div id="pnlArquivo">
+      <label>
+        <span>Selecione um arquivo para ser analisado.</span>
+        <input id="cnab" type="file" class="form-control hidden" accept=".text, .rem, .ret"
+          aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+      </label>
+    </div>
 
-      </li>
-    </ul>
     <div>
       <!-- Form -->
       <div id="img-form" class="hidden">
+
         <div id="ProgressCnab">
           <div id="BarCnab"></div>
         </div>
@@ -51,30 +63,22 @@
         </div>
         <div id="GroupBtn">
           <!-- Button -->
-          <button name="btnAnalisar" class="btn" onclick="move()">
+          <button name="btnAnalisar" class="btn" onclick="analisarCnab()">
             <ion-icon name="flash-outline"></ion-icon>
-            Analisar
+            Analisar arquivo
           </button>
-          <button name="btnRelatorio" class="btn" onclick="crea">
-            <ion-icon name="document-attach-outline"></ion-icon>
-            Relatório
-          </button>
-          <button name="btnDados" class="btn" onclick="move()">
-            <ion-icon name="podium-outline"></ion-icon>
-            Dados
-          </button>
+
         </div>
       </div>
+      <footer>
+        <p>Versão: 1.0.0</p>
+      </footer>
     </div>
-
-    
-    <footer>
-      <p>Versão: 1.0.0</p>
-    </footer>
-  </div>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="./scripts/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./scripts/notifications.js"></script>
+    <script src="./scripts/mode_theme.js"></script>
+    <script src="./scripts/analisar_arquivo.js"></script>
 
 </body>
 

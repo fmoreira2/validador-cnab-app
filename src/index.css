@@ -41,13 +41,14 @@ body * {
 
 #container {
   width: 480px;
-  margin: 40px auto 0px;
-  padding: 0 24px;
+  margin: 10px auto 0px;
+  padding: 0 15px;
 }
 
 #logo {
   text-align: center;
-  padding: 24px;
+  padding: 10px;
+  margin-top: 8px;
 }
 
 #logo img {
@@ -67,11 +68,12 @@ body * {
   position: relative;
   width: 64px;
   margin: 4px center;
+  margin-bottom: 15px;
 }
 
 #switch button {
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   background: #fff var(--switch-bg-url) no-repeat center;
 
   border: 0;
@@ -91,7 +93,7 @@ body * {
 #switch span {
   display: block;
   width: 64px;
-  height: 24px;
+  height: 14px;
   background: var(--surface-color);
   border: 1px solid var(--stroke-color);
   backdrop-filter: blur(4px);
@@ -99,36 +101,40 @@ body * {
   border-radius: 9999px;
 }
 
+/*radio*/
+.radio {
+  position: relative;
+  margin: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio input {
+  position: absolute;
+  height: 13px;
+  width: 13px;
+  cursor: pointer;
+
+
+}
+
+.radio label {
+  font-size: 15px;
+  cursor: pointer;
+
+}
+
 /*links*/
 
-ul {
+#pnlArquivo {
   list-style: none;
   display: flex;
   flex-direction: column;
   padding: 24px 0px;
-  gap: 16px;
+  gap: 0px;
   cursor: pointer;
 }
 
-ul li input {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 24px;
-  background: var(--bg-link-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  bottom: unset;
-}
-
-ul li input:hover {
-  background: var(--bg-link-color-hover);
-  border: 1.5px solid var(--text-color);
-}
 
 /*ProgressBar*/
 #ProgressCnab {
@@ -156,15 +162,15 @@ ul li input:hover {
 }
 
 .btn {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 8px 12px;
   background: var(--bg-link-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-weight: 500;
+  border-radius: 0px;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.2s;
@@ -172,15 +178,15 @@ ul li input:hover {
 }
 
 .btnDisabled {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 8px 12px;
   background: var(--bg-link-color-hover);
   border: 1.5px solid var(--text-color);
   border-radius: 8px;
-  font-weight: 500;
+  font-weight: 400;
   text-decoration: none;
   cursor: default;
   transition: background 0.2s;
@@ -194,8 +200,8 @@ ul li input:hover {
 #GroupBtn {
   display: flex;
   justify-content: center;
-  padding: 24px 0px;
-  font-size: 24px;
+  padding: 12px 0px;
+  font-size: 12px;
 }
 
 #GroupBtn button {
@@ -203,19 +209,16 @@ ul li input:hover {
   margin-right: 15px;
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  border-radius: 20%;
+  padding: 10px;
+  border-radius: 0%;
   transition: background 0.2s;
 }
 
-#GroupBtn button ion-icon{
-  /* display: flex; */
+#GroupBtn button ion-icon {
+
   font-size: 24px;
   align-items: center;
-  /* justify-content: center; */
   margin-right: 10px;
-  
-  
 }
 
 #GroupBtn button:hover {
@@ -246,9 +249,21 @@ ul li input:hover {
 }
 
 footer {
-  padding: 24px 0px;
+  padding: 0px;
   text-align: center;
   font-size: 10px;
+}
+
+#relatorio{
+  padding: 5px 0px;
+  text-align: center;
+  font-size: 18px;
+}
+
+#relatorio a{
+  padding: 5px 0px;
+  text-align: center;
+  font-size: 14px;
 }
 
 #sobre {
