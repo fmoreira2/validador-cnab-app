@@ -2,6 +2,8 @@ const cnab = document.querySelector("#cnab");
 const relatorio = document.getElementById("relatorio");
 const filename = document.querySelector("#filename");
 const lbQtdLinhas = document.querySelector("#lbQtdLinhas");
+const vMulta = document.querySelector("#vMulta");
+const vJuros = document.querySelector("#vJuros");
 const radio_rem_400_bmp = document.querySelector("#radio_rem_400_bmp");
 const radio_rem_400_bradesco = document.querySelector(
   "#radio_rem_400_bradesco"
@@ -13,12 +15,28 @@ const radio_rem_400_paulista = document.querySelector(
 // File select listener
 cnab.addEventListener("change", loadFile);
 
+vMulta.addEventListener("change", () => {
+  localStorage.setItem("vMulta", JSON.stringify(vMulta.value));
+  limparParametros();
+});
+
+vJuros.addEventListener("change", () => {
+  localStorage.setItem("vJuros", JSON.stringify(vJuros.value));
+  limparParametros();
+});
+
+function limparParametros() {
+  localStorage.setItem("cnab", JSON.stringify([]));
+  Rem_400_bmp.novoCnab();
+}
+
 ///TODO: refatorar código func loadFile
 ///TODO: Função deverá identificar o tipo de arquivo cnab
 // carregar arquivo e processar
 function loadFile(e) {
   const file = e.target.files[0];
   Rem_400_bmp.novoCnab();
+  console.log(Rem_400_bmp);
   limpaBarCnab();
   filename.innerHTML = cnab.files[0].path;
   //verificar qtd linhas
@@ -33,7 +51,6 @@ function readFile(file) {
   reader.onload = function () {
     let result = reader.result;
     total = result.split("\n").length;
-    console.log("total:", total);
     lbQtdLinhas.innerHTML = total.toString();
   };
   limpaBarCnab();
@@ -50,6 +67,8 @@ function limpaBarCnab() {
 ///TODO: Função deverá identificar o tipo de arquivo cnab
 //analisar arquivo cnab
 function analisarCnab() {
+  //limpar cache
+  Exportar.limparCache();
   //verifica se arquivo foi selecionado
   if (cnab.files[0] == undefined) {
     alertError("Selecione um arquivo!");
@@ -102,10 +121,8 @@ function analisarCnab() {
               alertError(
                 `Linha ${i + 1} inválida, identificador: ${identRegistro}`
               );
-              console.log("linha inválida:", lines[i]);
               //adicionar linha inválida ao log
               Rem_400_bmp.body(i + 1, lines[i]);
-              console.log("pppp");
             }
           } else if (radio_rem_400_bradesco.checked) {
             console.log("radio_rem_400_bradesco");
@@ -122,9 +139,4 @@ function analisarCnab() {
       }
     }
   };
-}
-
-function gerarPdf() {
-  Exportar.gerarPDF();
-  alertSuccess("PDF gerado com sucesso!");
 }

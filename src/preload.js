@@ -1,5 +1,7 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
+
+
 const Toastify = require("toastify-js");
 const Rem_400_bmp = require("./models/rem_400_bmp.js");
 let {
@@ -10,16 +12,6 @@ let {
   getCnabAnalisado,
   setNovoCnab,
 } = Rem_400_bmp;
-// const cnab = document.querySelector("#cnab");
-// const filename = document.querySelector("#filename");
-// const lbQtdLinhas = document.querySelector("#lbQtdLinhas");
-// const radio_rem_400_bmp = document.querySelector("#radio_rem_400_bmp");
-// const radio_rem_400_bradesco = document.querySelector(
-//   "#radio_rem_400_bradesco"
-// );
-// const radio_rem_400_paulista = document.querySelector(
-//   "#radio_rem_400_paulista"
-// );
 
 contextBridge.exposeInMainWorld("Toastify", {
   toast: (options) => Toastify(options).showToast(),
@@ -36,8 +28,15 @@ contextBridge.exposeInMainWorld("Rem_400_bmp", {
 
 contextBridge.exposeInMainWorld("Exportar", {
   createRelatorioWindow: () => createRelatorioWindow(),
+  limparCache: () => limparCache(),
 });
 
 function createRelatorioWindow(abc) {
   ipcRenderer.send("relModal");
 }
+
+function limparCache() {
+  ipcRenderer.send("limparCache");
+};
+
+

@@ -1,8 +1,13 @@
-const { app, BrowserWindow, Menu, contextBridge, ipcMain } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  contextBridge,
+  ipcMain,
+} = require("electron");
 const electronReload = require("electron-reload");
 electronReload(__dirname);
 const path = require("path");
-
 
 const isDev = process.env.NODE_ENV !== "development";
 const isMac = process.platform === "darwin";
@@ -16,11 +21,9 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-
-
 const createWindow = async () => {
   // Create the browser window.
-   mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 750,
     resizable: false,
@@ -29,13 +32,10 @@ const createWindow = async () => {
       contextIsolation: true,
       enableRemoteModule: true,
       preload: path.join(__dirname, "preload.js"),
-
     },
   });
-  
-  await mainWindow.loadFile(path.join(__dirname, "index.html"));
 
-  
+  await mainWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Open the DevTools.
   if (isDev) {
@@ -70,6 +70,12 @@ ipcMain.on("relModal", () => {
   createRelWindow();
 });
 
+//ipcMain limpar cache
+ipcMain.on("limparCache", () => {
+  mainWindow.webContents.session.clearCache(function () {
+    //some callback.
+  });
+});
 
 //create sobre window
 function createSobreWindow() {
@@ -77,7 +83,7 @@ function createSobreWindow() {
     const sobreWindow = new BrowserWindow({
       title: "Sobre",
       width: 500,
-      height: 500,
+      height: 350,
     });
 
     sobreWindow.loadFile(path.join(__dirname, "sobre.html"));
@@ -139,6 +145,9 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
+  mainWindow.webContents.session.clearCache(function () {
+    //some callback.
+  });
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
@@ -149,12 +158,3 @@ app.whenReady().then(() => {
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
 });
-
-
-
-
-
-
-
-
-

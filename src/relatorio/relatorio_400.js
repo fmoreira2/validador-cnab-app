@@ -52,7 +52,6 @@ function carregarDados() {
     //loop para carregar erros body cnab
     for (let i = 0; i < cnab.body.length; i++) {
       for (let j = 0; j < cnab.body[i].erros.length; j++) {
-        
         //criar linha
         var tr = document.createElement("tr");
         //criar coluna

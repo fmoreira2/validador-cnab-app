@@ -155,9 +155,6 @@ exports.setNomeArquivo = function (nomeArquivo) {
 };
 
 exports.analisarHeader = function (index, line) {
-  //console.log("index: ", index);
-  //console.log("line: ", line);
-
   let _header = null;
   _header = Object.create(Header);
   _header.erros = [];
@@ -325,6 +322,31 @@ exports.analisarBody = function (index, line) {
         _body.erros.push({
           descricao: `Linha ${index} - 067 a 070 Percentual multa inválido!`,
         });
+      } else {
+        try {
+          var multa = parseFloat(_body.PercentualMulta) / 100;
+          if (multa < 0 || multa > 100) {
+            _body.erros.push({
+              descricao: `Linha ${index} - 067 a 070 Percentual multa inválido!`,
+            });
+          } else {
+            //get localstorage
+            var vMulta = null;
+            vMulta = JSON.parse(localStorage.getItem("vMulta"));
+            console.log("Json multa:", vMulta);
+            if (vMulta > 0) {
+              if (vMulta != multa) {
+                _body.erros.push({
+                  descricao: `Linha ${index} - 067 a 070 Percentual multa inválido! Valor da multa no arquivo: ${multa} - Valor da multa no sistema: ${vMulta}`,
+                });
+              }
+            }
+          }
+        } catch (error) {
+          _body.erros.push({
+            descricao: `Linha ${index} - 067 a 070 Percentual multa inválido!`,
+          });
+        }
       }
     }
 
@@ -403,7 +425,30 @@ exports.analisarBody = function (index, line) {
       _body.erros.push({
         descricao: `Linha ${index} - 127 a 139 Valor do título inválido!`,
       });
+    } else {
+      try {
+        //colocar virgula antes dos dois últimos caracteres no valor do título
+        var numVirgula = _body.valorTitulo.length - 2;
+        _body.valorTitulo =
+          _body.valorTitulo.substring(0, numVirgula) +
+          "." +
+          _body.valorTitulo.substring(numVirgula);
+        
+        //converte o valor do título para float
+        var valorTitulo = parseFloat(_body.valorTitulo);
+        //verifica se o valor do título é válido
+        if (valorTitulo <= 0) {
+          _body.erros.push({
+            descricao: `Linha ${index} - 127 a 139 Valor do título inválido!`,
+          });
+        }
+      } catch (error) {
+        _body.erros.push({
+          descricao: `Linha ${index} - 127 a 139 Valor do título inválido!`,
+        });
+      }
     }
+
     _body.numBancoCobranca = line.substring(139, 142);
     _body.agenDepositaria = line.substring(142, 147);
     _body.especieTitulo = line.substring(147, 149);
@@ -487,6 +532,45 @@ exports.analisarBody = function (index, line) {
         _body.erros.push({
           descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido!`,
         });
+      } else {
+        try {
+          var numVirgula = _body.valorJurosMora.length - 2;
+          _body.valorJurosMora =
+            _body.valorJurosMora.substring(0, numVirgula) +
+            "." +
+            _body.valorJurosMora.substring(numVirgula);
+
+          //converte o valor do juros de mora para float
+          var valorJurosMora = parseFloat(_body.valorJurosMora);
+          //verifica se o valor do juros de mora é válido
+          if (valorJurosMora < 0) {
+            _body.erros.push({
+              descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido!`,
+            });
+          } else {
+            //get localstorage
+            var vJuros = null;
+            vJuros = JSON.parse(localStorage.getItem("vJuros"));
+            console.log("Json juros:", vJuros);
+
+            console.log("Valor de mora dia:", valorJurosMora);
+
+            //calcular o valor de mora dia
+            var varloMoraDiaCalculado = (vJuros / 30 / 30) * _body.valorTitulo;
+            varloMoraDiaCalculado = varloMoraDiaCalculado.toFixed(2);
+            console.log("Valor de mora dia calculado:", varloMoraDiaCalculado);
+
+            if (varloMoraDiaCalculado != _body.percentualJurosMora) {
+              _body.erros.push({
+                descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido!`,
+              });
+            }
+          }
+        } catch (error) {
+          _body.erros.push({
+            descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido!`,
+          });
+        }
       }
 
       _body.dataLimiteDesconto = line.substring(173, 179);
@@ -629,6 +713,5 @@ exports.setNovoCnab = function () {
   rem_400_bmp.header = [];
   rem_400_bmp.body = [];
   rem_400_bmp.trailler = [];
-  console.log("limpo?:", rem_400_bmp);
   return rem_400_bmp;
 };

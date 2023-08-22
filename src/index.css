@@ -124,7 +124,23 @@ body * {
 
 }
 
-/*links*/
+/*inputs*/
+#pnlInputs {
+  /* list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px; */
+
+
+  /* cursor: pointer; */
+}
+
+#pnlInputs label {
+  /* margin: 10px; */
+
+}
+
+
 
 #pnlArquivo {
   list-style: none;
@@ -254,13 +270,13 @@ footer {
   font-size: 10px;
 }
 
-#relatorio{
+#relatorio {
   padding: 5px 0px;
   text-align: center;
   font-size: 18px;
 }
 
-#relatorio a{
+#relatorio a {
   padding: 5px 0px;
   text-align: center;
   font-size: 14px;

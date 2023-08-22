@@ -1,5 +1,4 @@
 @import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-/* @import "../index.css"; */
 
 :root {
     --text-color: #1f1f1f;
@@ -54,7 +53,7 @@ body {
     vertical-align: middle;
 }
 
-.card{
+.card {
     margin: 0.5rem;
 }
 
@@ -81,7 +80,7 @@ body {
     margin-right: 30px;
 }
 
-@media print{
+@media print {
     #tituloRelatorio button {
         display: none;
     }

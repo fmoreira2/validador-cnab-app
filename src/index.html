@@ -19,10 +19,7 @@
       <img src="./assets/logo.svg" alt="Logotipo">
       <p>Validador Cnab</p>
     </div>
-    <!-- <div id="switch">
-      <button name="btnMode" onclick="toggleMode()"></button>
-      <span></span>
-    </div> -->
+
     <div class="radio">
       <p>Selecione o layout do arquivo remessa:</p>
       <div class="form-check form-check-inline">
@@ -42,6 +39,25 @@
       </div>
     </div>
 
+    <div id="pnlInputs" class="row g-3">
+      <div class="col">
+
+        <div class="form-floating">
+          <input type="number" class="form-control" value="2" id="vJuros" placeholder="Juros">
+          <label for="vJuros">% Juros</label>
+        </div>
+
+      </div>
+      <div class="col">
+
+        <div class="form-floating">
+          <input type="number" class="form-control" value="1" id="vMulta" placeholder="Multa">
+          <label for="vMulta">% Multa</label>
+        </div>
+
+      </div>
+    </div>
+
     <div id="pnlArquivo">
       <label>
         <span>Selecione um arquivo para ser analisado.</span>
@@ -51,7 +67,7 @@
     </div>
 
     <div>
-      <!-- Form -->
+
       <div id="img-form" class="hidden">
 
         <div id="ProgressCnab">
@@ -62,7 +78,7 @@
           <p id="pathArquivo">Arquivo: <span id="filename"></span></p>
         </div>
         <div id="GroupBtn">
-          <!-- Button -->
+
           <button name="btnAnalisar" class="btn" onclick="analisarCnab()">
             <ion-icon name="flash-outline"></ion-icon>
             Analisar arquivo
