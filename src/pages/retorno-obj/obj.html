@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="obj.css">
+    <title>Retorno - Objeto validado</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Visualizar objeto validado</h1>
+        <div id="jsonDisplay"></div>
+    </div>
+</body>
+<script>
+    function createCollapsibleElement(key, value) {
+        var element = document.createElement("div");
+
+        var keyElement = document.createElement("span");
+        keyElement.className = "collapsible";
+        keyElement.textContent = key;
+        keyElement.addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        });
+
+        var contentElement = document.createElement("div");
+        contentElement.className = "content";
+
+        if (typeof value === "object") {
+            for (var prop in value) {
+                if (value.hasOwnProperty(prop)) {
+                    contentElement.appendChild(createCollapsibleElement(prop, value[prop]));
+                }
+            }
+        } else {
+            contentElement.textContent = value;
+        }
+
+        element.appendChild(keyElement);
+        element.appendChild(contentElement);
+
+        return element;
+    }
+
+    let cnab = localStorage.getItem("cnab");
+    var formattedJSON = JSON.parse(cnab);
+
+    var jsonDisplay = document.getElementById("jsonDisplay");
+    jsonDisplay.appendChild(createCollapsibleElement("Arquivo Cnab", formattedJSON));
+</script>
+<script src="./obj.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</html>

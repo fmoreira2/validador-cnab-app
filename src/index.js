@@ -9,12 +9,14 @@ const electronReload = require("electron-reload");
 electronReload(__dirname);
 const path = require("path");
 
-const isDev = process.env.NODE_ENV !== "development";
+// const isDev = process.env.NODE_ENV !== "development";
+const isDev = false;
 const isMac = process.platform === "darwin";
 
 //janelas
 var mainWindow = null;
 var RelWindow = null;
+var objWindow = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -65,9 +67,38 @@ async function createRelWindow() {
   }
 }
 
+async function createObjWindow() {
+  objWindow = new BrowserWindow({
+    parent: mainWindow,
+    modal: false,
+    width: 950,
+    height: 750,
+    resizable: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      enableRemoteModule: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+
+  await objWindow.loadFile(
+    path.join(__dirname, "./pages/retorno-obj/obj.html")
+  );
+  // Open the DevTools.
+  if (isDev) {
+    objWindow.webContents.openDevTools();
+  }
+}
+
 //ipcMain abrir modal
 ipcMain.on("relModal", () => {
   createRelWindow();
+});
+
+//ipcMain abrir obj
+ipcMain.on("objModal", () => {
+  createObjWindow();
 });
 
 //ipcMain limpar cache

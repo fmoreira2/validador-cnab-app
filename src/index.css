@@ -185,42 +185,49 @@ body * {
   padding: 8px 12px;
   background: var(--bg-link-color);
   border: 1px solid var(--border-color);
-  border-radius: 0px;
+  border-radius: 10px;
   font-weight: 400;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.2s;
+  /* transition: background 0.2s; */
   color: #fff;
-}
-
-.btnDisabled {
-  margin-top: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  background: var(--bg-link-color-hover);
-  border: 1.5px solid var(--text-color);
-  border-radius: 8px;
-  font-weight: 400;
-  text-decoration: none;
-  cursor: default;
-  transition: background 0.2s;
 }
 
 .btn:hover {
   background: var(--bg-link-color-hover);
   border: 1.5px solid var(--text-color);
+  border-radius: 10px;
 }
 
-#GroupBtn {
+.btnObj {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: var(--bg-link-color);
+  border: none;
+  border-radius: 5px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  /* transition: background 0.2s; */
+  color: #fff;
+}
+
+.btnObj:hover {
+  background: var(--bg-link-color-hover);
+  border: none;
+}
+
+#btnAnalisar {
   display: flex;
   justify-content: center;
   padding: 12px 0px;
   font-size: 12px;
 }
 
-#GroupBtn button {
+#btnAnalisar button {
   display: flex;
   margin-right: 15px;
   align-items: center;
@@ -230,17 +237,46 @@ body * {
   transition: background 0.2s;
 }
 
-#GroupBtn button ion-icon {
+#btnAnalisar button ion-icon {
 
   font-size: 24px;
   align-items: center;
   margin-right: 10px;
 }
 
-#GroupBtn button:hover {
+#btnAnalisar button:hover {
   background: var(--bg-social-color-hover);
 }
 
+
+
+#btnObjValidado {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0px;
+  font-size: 12px;
+}
+
+#btnObjValidado button {
+  display: flex;
+  margin-right: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 0%;
+  transition: background 0.2s;
+}
+
+#btnObjValidado button ion-icon {
+
+  font-size: 24px;
+  align-items: center;
+  margin-right: 10px;
+}
+
+#btnObjValidado button:hover {
+  background: var(--bg-social-color-hover);
+}
 /*social links*/
 
 #social-links {

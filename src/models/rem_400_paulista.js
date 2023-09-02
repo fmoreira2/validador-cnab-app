@@ -1,4 +1,4 @@
-//layout arquivo remessa 400 banco BMP
+//layout arquivo remessa 400 banco Paulista
 const Header = {
   //Posição 001 a 001
   identRegistro: "",
@@ -15,7 +15,7 @@ const Header = {
   //Posição 047 a 076
   nomeEmpresa: "",
   //Posição 077 a 079
-  numBancoBMP: "",
+  numBanco: "",
   //Posição 080 a 094
   nomeBanco: "",
   //Posição 095 a 100
@@ -148,13 +148,13 @@ const layout = {
   trailler: [],
 };
 
-var rem_400_bmp = {};
+var Rem_400_paulista = {};
 
-exports.setNomeArquivo = function (nomeArquivo) {
-  rem_400_bmp["nomeArquivo"] = nomeArquivo;
+exports.paulista_setNomeArquivo = function (nomeArquivo) {
+  Rem_400_paulista["nomeArquivo"] = nomeArquivo;
 };
 
-exports.analisarHeader = function (index, line) {
+exports.paulista_analisarHeader = function (index, line) {
   let _header = null;
   _header = Object.create(Header);
   _header.erros = [];
@@ -198,15 +198,15 @@ exports.analisarHeader = function (index, line) {
   _header.codEmpresa = line.substring(27, 46);
   _header.nomeEmpresa = line.substring(46, 76);
 
-  _header.numBancoBMP = line.substring(76, 79);
-  if (_header.numBancoBMP != "274") {
+  _header.numBanco = line.substring(76, 79);
+  if (_header.numBanco != "611") {
     _header.erros.push({
       descricao: `Linha ${index} - 077 a 079 Número do banco inválido!`,
     });
   }
 
   _header.nomeBanco = line.substring(79, 94);
-  if (_header.nomeBanco != "BMP MONEY PLUS") {
+  if (_header.nomeBanco != "PAULISTA S.A.") {
     _header.erros.push({
       descricao: `Linha ${index} - 080 a 094 Nome do banco inválido!`,
     });
@@ -261,10 +261,10 @@ exports.analisarHeader = function (index, line) {
     });
   }
 
-  rem_400_bmp.header.push(_header);
+  Rem_400_paulista.header.push(_header);
 };
 
-exports.analisarBody = function (index, line) {
+exports.paulista_analisarBody = function (index, line) {
   let _body = null;
   _body = Object.create(Body);
   _body.erros = [];
@@ -333,6 +333,7 @@ exports.analisarBody = function (index, line) {
             //get localstorage
             var vMulta = null;
             vMulta = JSON.parse(localStorage.getItem("vMulta"));
+            console.log("Json multa:", vMulta);
             if (vMulta > 0) {
               if (vMulta != multa) {
                 _body.erros.push({
@@ -550,10 +551,15 @@ exports.analisarBody = function (index, line) {
             //get localstorage
             var vJuros = null;
             vJuros = JSON.parse(localStorage.getItem("vJuros"));
+            console.log("Json juros:", vJuros);
+
+            console.log("Valor de mora dia:", valorJurosMora);
 
             //calcular o valor de mora dia
             var valorMoraDiaCalculado = (vJuros / 30 / 100) * _body.valorTitulo;
             valorMoraDiaCalculado = valorMoraDiaCalculado.toFixed(2);
+            console.log("Valor de mora dia calculado:", valorMoraDiaCalculado);
+
             if (valorMoraDiaCalculado != _body.percentualJurosMora) {
               _body.erros.push({
                 descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido! Valor do juros de mora no arquivo: ${valorJurosMora} - Valor de mora no sistema: ${valorMoraDiaCalculado}`,
@@ -662,12 +668,12 @@ exports.analisarBody = function (index, line) {
         });
       }
 
-      rem_400_bmp.body.push(_body);
+      Rem_400_paulista.body.push(_body);
     }
   }
 };
 
-exports.analisarTrailler = function (index, line) {
+exports.paulista_analisarTrailler = function (index, line) {
   let i = index - 1;
   let _trailler = null;
   _trailler = Trailler;
@@ -695,17 +701,17 @@ exports.analisarTrailler = function (index, line) {
     });
   }
 
-  rem_400_bmp.trailler.push(_trailler);
+  Rem_400_paulista.trailler.push(_trailler);
 };
 
-exports.getCnabAnalisado = function () {
-  return rem_400_bmp;
+exports.paulista_getCnabAnalisado = function () {
+  return Rem_400_paulista;
 };
 
-exports.setNovoCnab = function () {
-  rem_400_bmp = Object.create(layout);
-  rem_400_bmp.header = [];
-  rem_400_bmp.body = [];
-  rem_400_bmp.trailler = [];
-  return rem_400_bmp;
+exports.paulista_setNovoCnab = function () {
+  Rem_400_paulista = Object.create(layout);
+  Rem_400_paulista.header = [];
+  Rem_400_paulista.body = [];
+  Rem_400_paulista.trailler = [];
+  return Rem_400_paulista;
 };

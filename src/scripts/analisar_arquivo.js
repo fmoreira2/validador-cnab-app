@@ -35,8 +35,12 @@ function limparParametros() {
 // carregar arquivo e processar
 function loadFile(e) {
   const file = e.target.files[0];
-  Rem_400_bmp.novoCnab();
-  console.log(Rem_400_bmp);
+
+  if (radio_rem_400_bmp.checked) Rem_400_bmp.novoCnab();
+  if (radio_rem_400_bradesco.checked) Rem_400_bradesco.novoCnab();
+  if (radio_rem_400_paulista.checked) Rem_400_paulista.novoCnab();
+
+  //console.log(Rem_400_bmp);
   limpaBarCnab();
   filename.innerHTML = cnab.files[0].path;
   //verificar qtd linhas
@@ -63,6 +67,10 @@ function limpaBarCnab() {
   elem.innerHTML = "";
 }
 
+function abrirObjValidado(){
+  Exportar.createObjWindow();
+}
+
 ///TODO: refatorar código func analisarCnab
 ///TODO: Função deverá identificar o tipo de arquivo cnab
 //analisar arquivo cnab
@@ -74,7 +82,12 @@ function analisarCnab() {
     alertError("Selecione um arquivo!");
     return;
   }
-  Rem_400_bmp.nomeArquivo(cnab.files[0].name);
+  if (radio_rem_400_bmp.checked) Rem_400_bmp.nomeArquivo(cnab.files[0].name);
+  if (radio_rem_400_bradesco.checked)
+    Rem_400_bradesco.nomeArquivo(cnab.files[0].name);
+  if (radio_rem_400_paulista.checked)
+    Rem_400_paulista.nomeArquivo(cnab.files[0].name);
+
   var i = 0;
   let total = +lbQtdLinhas.innerHTML;
   //arquivo
@@ -91,9 +104,28 @@ function analisarCnab() {
         if (i >= total) {
           alertSuccess("Arquivo analisado com sucesso!");
           clearInterval(id);
-          console.log(Rem_400_bmp.arquivo());
-          //localstorage
-          localStorage.setItem("cnab", JSON.stringify(Rem_400_bmp.arquivo()));
+          if (radio_rem_400_bmp.checked) {
+            console.log(Rem_400_bmp.arquivo());
+            //localstorage
+            localStorage.setItem("cnab", JSON.stringify(Rem_400_bmp.arquivo()));
+            
+          }
+          if (radio_rem_400_bradesco.checked) {
+            console.log(Rem_400_bradesco.arquivo());
+            //localstorage
+            localStorage.setItem(
+              "cnab",
+              JSON.stringify(Rem_400_bradesco.arquivo())
+            );
+          }
+          if (radio_rem_400_paulista.checked) {
+            console.log(Rem_400_paulista.arquivo());
+            //localstorage
+            localStorage.setItem(
+              "cnab",
+              JSON.stringify(Rem_400_paulista.arquivo())
+            );
+          }
           //abri janela relatorio
           Exportar.createRelatorioWindow();
           i = 0;
@@ -125,9 +157,58 @@ function analisarCnab() {
               Rem_400_bmp.body(i + 1, lines[i]);
             }
           } else if (radio_rem_400_bradesco.checked) {
-            console.log("radio_rem_400_bradesco");
+            try {
+              var identRegistro = lines[i].substring(0, 1);
+            } catch {}
+
+            if (identRegistro == "0") {
+              Rem_400_bradesco.header(i + 1, lines[i]);
+            } else if (identRegistro == "1") {
+              Rem_400_bradesco.body(i + 1, lines[i]);
+            } else if (identRegistro == "9") {
+              Rem_400_bradesco.trailler(i + 1, lines[i]);
+            } else if (
+              identRegistro == "" ||
+              identRegistro == undefined ||
+              identRegistro == null
+            ) {
+              alertError(
+                `Linha ${i + 1} inválida, identificador: nulo ou vazio`
+              );
+            } else {
+              alertError(
+                `Linha ${i + 1} inválida, identificador: ${identRegistro}`
+              );
+              //adicionar linha inválida ao log
+              Rem_400_bradesco.body(i + 1, lines[i]);
+            }
           } else if (radio_rem_400_paulista.checked) {
-            console.log("radio_rem_400_paulista");
+            try {
+              var identRegistro = lines[i].substring(0, 1);
+            } catch {}
+
+            if (identRegistro == "0") {
+              Rem_400_paulista.header(i + 1, lines[i]);
+            } else if (identRegistro == "1") {
+              Rem_400_paulista.body(i + 1, lines[i]);
+            } else if (identRegistro == "9") {
+              Rem_400_paulista.trailler(i + 1, lines[i]);
+            } else if (
+              identRegistro == "" ||
+              identRegistro == undefined ||
+              identRegistro == null
+            ) {
+              alertError(
+                `
+                Linha ${i + 1} inválida, identificador: nulo ou vazio`
+              );
+            } else {
+              alertError(
+                `Linha ${i + 1} inválida, identificador: ${identRegistro}`
+              );
+              //adicionar linha inválida ao log
+              Rem_400_paulista.body(i + 1, lines[i]);
+            }
           } else {
             alertError("Selecione um layout!");
             return;

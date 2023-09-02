@@ -1,0 +1,72 @@
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: #fff;
+    --bg-url: url(../../assets/bg-Mobile.jpg);
+    --border-color: #ffffff80;
+    --bg-link-color: rgba(255, 255, 255, 0.05);
+    --bg-link-color-hover: rgba(255, 255, 255, 0.1);
+    --bg-social-color-hover: rgba(255, 255, 255, 0.2);
+    --switch-bg-url: url(./assets/moon-stars.svg);
+    --surface-color: rgba(255, 255, 255, 0.1);
+    --stroke-color: rgba(255, 255, 255, 0.5);
+}
+
+.light {
+    --text-color: black;
+    --bg-url: url(./assets/bg-Light.jpg);
+    --border-color: rgba(0, 0, 0, 0.5);
+    --bg-link-color: rgba(0, 0, 0, 0.05);
+    --bg-link-color-hover: rgba(0, 0, 0, 0.02);
+    --bg-social-color-hover: rgba(0, 0, 0, 0.1);
+    --switch-bg-url: url(../../assets/bg-Light.jpg);
+}
+
+body {
+    background: var(--bg-url) no-repeat top center/cover;
+}
+
+body * {
+    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+}
+
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.6rem;
+}
+
+#jsonDisplay {
+    margin: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff80;
+    border: 1px solid #ffffff80;
+    overflow: auto;
+    max-height: 500px;
+}
+
+.collapsible {
+    cursor: pointer;
+    /* user-select: none; */
+    background-color: transparent;
+}
+
+.content {
+    display: none;
+    padding-left: 20px;
+}
