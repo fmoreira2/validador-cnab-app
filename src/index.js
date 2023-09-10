@@ -190,4 +190,3 @@ app.whenReady().then(() => {
   Menu.setApplicationMenu(mainMenu);
 });
 
-require("update-electron-app")();
