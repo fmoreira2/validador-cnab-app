@@ -189,3 +189,5 @@ app.whenReady().then(() => {
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
 });
+
+require("update-electron-app")();
