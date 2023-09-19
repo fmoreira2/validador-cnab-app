@@ -143,6 +143,7 @@ const Erros = {
 
 const layout = {
   nomeArquivo: "",
+  formato: 400,
   header: [],
   body: [],
   trailler: [],
@@ -161,9 +162,11 @@ exports.bradesco_analisarHeader = function (index, line) {
 
   //verifica a quantidade de caracteres da linha
   if (line.length != 400) {
-    _header.erros.push({
-      descricao: `Linha ${index} - Quantidade de caracteres inválida!`,
-    });
+    if (line.length != 444) {
+      _header.erros.push({
+        descricao: `Linha ${index} - Quantidade de caracteres inválida! ${line.length}`,
+      });
+    }
   }
   _header.identRegistro = line.substring(0, 1);
 
@@ -175,7 +178,7 @@ exports.bradesco_analisarHeader = function (index, line) {
   }
 
   _header.literalRemessa = line.substring(2, 9);
-  if (_header.literalRemessa != "REMESSA") {
+  if (_header.literalRemessa.trim() != "REMESSA") {
     _header.erros.push({
       descricao: `Linha ${index} - 003 a 009 Literal remessa inválido!`,
     });
@@ -189,7 +192,7 @@ exports.bradesco_analisarHeader = function (index, line) {
   }
 
   _header.literalServico = line.substring(11, 26);
-  if (_header.literalServico != "COBRANCA") {
+  if (_header.literalServico.trim() != "COBRANCA") {
     _header.erros.push({
       descricao: `Linha ${index} - 012 a 026 Literal do serviço inválido!`,
     });
@@ -206,9 +209,9 @@ exports.bradesco_analisarHeader = function (index, line) {
   }
 
   _header.nomeBanco = line.substring(79, 94);
-  if (_header.nomeBanco != "BRADESCO") {
+  if (_header.nomeBanco.trim() != "BRADESCO") {
     _header.erros.push({
-      descricao: `Linha ${index} - 080 a 094 Nome do banco inválido!`,
+      descricao: `Linha ${index} - 080 a 094 Nome do banco inválido! ${_header.nomeBanco}`,
     });
   }
 
@@ -271,9 +274,11 @@ exports.bradesco_analisarBody = function (index, line) {
 
   //verifica a quantidade de caracteres da linha
   if (line.length != 400) {
-    _body.erros.push({
-      descricao: `Linha ${index} - Quantidade de caracteres inválida!`,
-    });
+    if (line.length != 444) {
+      _body.erros.push({
+        descricao: `Linha ${index} - Quantidade de caracteres inválida!`,
+      });
+    }
   }
 
   if (line.substring(0, 1) != "1") {
@@ -305,9 +310,10 @@ exports.bradesco_analisarBody = function (index, line) {
     _body.branco_53_62 = line.substring(52, 62);
     _body.codBancoDebitado = line.substring(62, 65);
     _body.campoMulta = line.substring(65, 66);
+    
     if (_body.campoMulta != "0" && _body.campoMulta != "2") {
       _body.erros.push({
-        descricao: `Linha ${index} - 066 a 066 Campo multa inválido!`,
+        descricao: `Linha ${index} - 066 a 066 Campo multa inválido! - valor no arquivo: ${_body.campoMulta} `,
       });
     }
 
@@ -382,11 +388,11 @@ exports.bradesco_analisarBody = function (index, line) {
       });
     }
     _body.identBoletoDebito = line.substring(93, 94);
-    if (_body.identBoletoDebito != "N") {
-      _body.erros.push({
-        descricao: `Linha ${index} - 094 a 094 Identificação do boleto de débito inválido!`,
-      });
-    }
+    // if (_body.identBoletoDebito != "N") {
+    //   _body.erros.push({
+    //     descricao: `Linha ${index} - 094 a 094 Identificação do boleto de débito inválido!`,
+    //   });
+    // }
     _body.identOperacaoBanco = line.substring(94, 104);
     _body.indicadorRateioCredito = line.substring(104, 105);
     _body.enderecamentoAvisoDebito = line.substring(105, 106);
@@ -562,7 +568,8 @@ exports.bradesco_analisarBody = function (index, line) {
 
             if (valorMoraDiaCalculado != _body.percentualJurosMora) {
               _body.erros.push({
-                descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido! Valor do juros de mora no arquivo: ${valorJurosMora} - Valor de mora no sistema: ${valorMoraDiaCalculado}`,
+                descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido! Valor do juros de mora no arquivo: 
+                ${valorJurosMora} - Valor de mora no sistema: ${valorMoraDiaCalculado}`,
               });
             }
           }
