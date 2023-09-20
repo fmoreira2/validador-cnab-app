@@ -15,19 +15,21 @@ const radio_rem_400_paulista = document.querySelector(
 // File select listener
 cnab.addEventListener("change", loadFile);
 
-vMulta.addEventListener("change", () => {
-  localStorage.setItem("vMulta", JSON.stringify(vMulta.value));
-  limparParametros();
-});
+// vMulta.addEventListener("change", () => {
+//   localStorage.setItem("vMulta", JSON.stringify(vMulta.value));
+//   limparParametros();
+// });
 
-vJuros.addEventListener("change", () => {
-  localStorage.setItem("vJuros", JSON.stringify(vJuros.value));
-  limparParametros();
-});
+// vJuros.addEventListener("change", () => {
+//   localStorage.setItem("vJuros", JSON.stringify(vJuros.value));
+//   limparParametros();
+// });
 
 function limparParametros() {
   localStorage.setItem("cnab", JSON.stringify([]));
   Rem_400_bmp.novoCnab();
+  Rem_400_bradesco.novoCnab();
+  Rem_400_paulista.novoCnab();
 }
 
 ///TODO: refatorar código func loadFile
@@ -67,7 +69,7 @@ function limpaBarCnab() {
   elem.innerHTML = "";
 }
 
-function abrirObjValidado(){
+function abrirObjValidado() {
   Exportar.createObjWindow();
 }
 
@@ -75,6 +77,10 @@ function abrirObjValidado(){
 ///TODO: Função deverá identificar o tipo de arquivo cnab
 //analisar arquivo cnab
 function analisarCnab() {
+  //salvar valores
+  localStorage.setItem("vMulta", JSON.stringify(vMulta.value));
+  localStorage.setItem("vJuros", JSON.stringify(vJuros.value));
+
   //limpar cache
   Exportar.limparCache();
   //verifica se arquivo foi selecionado
@@ -108,7 +114,6 @@ function analisarCnab() {
             console.log(Rem_400_bmp.arquivo());
             //localstorage
             localStorage.setItem("cnab", JSON.stringify(Rem_400_bmp.arquivo()));
-            
           }
           if (radio_rem_400_bradesco.checked) {
             console.log(Rem_400_bradesco.arquivo());
