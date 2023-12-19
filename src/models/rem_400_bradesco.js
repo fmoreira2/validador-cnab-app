@@ -204,7 +204,7 @@ exports.bradesco_analisarHeader = function (index, line) {
   _header.numBanco = line.substring(76, 79);
   if (_header.numBanco != "237") {
     _header.erros.push({
-      descricao: `Linha ${index} - 077 a 079 Número do banco inválido!`,
+      descricao: `Linha ${index} - 077 a 079 Número do banco inválido! ${_header.numBanco}`,
     });
   }
 
@@ -264,6 +264,18 @@ exports.bradesco_analisarHeader = function (index, line) {
     });
   }
 
+  var erro = validarCaracterEspecial(line);
+  if (erro.descricao != "")
+    _header.erros.push({
+      descricao: `Linha ${index} - ${erro.descricao}`,
+    });
+
+  var erroHexa = validarCaracterHexa(line);
+  if (erroHexa.descricao != "")
+    _header.erros.push({
+      descricao: `Linha ${index} - ${erroHexa.descricao}`,
+    });
+
   Rem_400_bradesco.header.push(_header);
 };
 
@@ -310,7 +322,7 @@ exports.bradesco_analisarBody = function (index, line) {
     _body.branco_53_62 = line.substring(52, 62);
     _body.codBancoDebitado = line.substring(62, 65);
     _body.campoMulta = line.substring(65, 66);
-    
+
     if (_body.campoMulta != "0" && _body.campoMulta != "2") {
       _body.erros.push({
         descricao: `Linha ${index} - 066 a 066 Campo multa inválido! - valor no arquivo: ${_body.campoMulta} `,
@@ -343,7 +355,7 @@ exports.bradesco_analisarBody = function (index, line) {
             if (vMulta > 0) {
               if (vMulta != multa) {
                 _body.erros.push({
-                  descricao: `Linha ${index} - 067 a 070 Percentual multa inválido! Valor da multa no arquivo: ${multa} - Valor da multa no sistema: ${vMulta}`,
+                  descricao: `Linha ${index} - 067 a 070 Percentual multa inválido! Valor da multa no arquivo: ${multa} - Valor da multa para o cedente: ${vMulta}`,
                 });
               }
             }
@@ -356,7 +368,6 @@ exports.bradesco_analisarBody = function (index, line) {
       }
     }
 
-    //_body.PercentualMulta = line.substring(66, 70);
     _body.nossoNumero = line.substring(70, 81);
     if (
       _body.nossoNumero == "" ||
@@ -373,7 +384,14 @@ exports.bradesco_analisarBody = function (index, line) {
     if (
       _body.digNossoNumero == "" ||
       _body.digNossoNumero == null ||
-      _body.digNossoNumero == undefined ||
+      _body.digNossoNumero == undefined
+      //_body.digNossoNumero == " "
+    ) {
+      _body.erros.push({
+        descricao: `Linha ${index} - 082 a 082 Dígito nosso número inválido!`,
+      });
+    } else if (
+      _body.nossoNumero != "00000000000" &&
       _body.digNossoNumero == " "
     ) {
       _body.erros.push({
@@ -398,6 +416,47 @@ exports.bradesco_analisarBody = function (index, line) {
     _body.enderecamentoAvisoDebito = line.substring(105, 106);
     _body.qtdPagamentos = line.substring(106, 108);
     _body.identOcorrencia = line.substring(108, 110);
+    if (
+      _body.identOcorrencia == "" ||
+      _body.identOcorrencia == null ||
+      _body.identOcorrencia == undefined ||
+      _body.identOcorrencia == "  "
+    ) {
+      _body.erros.push({
+        descricao: `Linha ${index} - 109 a 110 Identificação da ocorrência inválida!`,
+      });
+    } else if (
+      _body.identOcorrencia != "01" &&
+      _body.identOcorrencia != "02" &&
+      _body.identOcorrencia != "03" &&
+      _body.identOcorrencia != "04" &&
+      _body.identOcorrencia != "05" &&
+      _body.identOcorrencia != "06" &&
+      _body.identOcorrencia != "07" &&
+      _body.identOcorrencia != "08" &&
+      _body.identOcorrencia != "09" &&
+      _body.identOcorrencia != "12" &&
+      _body.identOcorrencia != "13" &&
+      _body.identOcorrencia != "14" &&
+      _body.identOcorrencia != "18" &&
+      _body.identOcorrencia != "19" &&
+      _body.identOcorrencia != "20" &&
+      _body.identOcorrencia != "21" &&
+      _body.identOcorrencia != "22" &&
+      _body.identOcorrencia != "23" &&
+      _body.identOcorrencia != "24" &&
+      _body.identOcorrencia != "31" &&
+      _body.identOcorrencia != "32" &&
+      _body.identOcorrencia != "45" &&
+      _body.identOcorrencia != "46" &&
+      _body.identOcorrencia != "47" &&
+      _body.identOcorrencia != "68" &&
+      _body.identOcorrencia != "69"
+    ) {
+      _body.erros.push({
+        descricao: `Linha ${index} - 109 a 110 Identificação da ocorrência inválida!`,
+      });
+    }
     _body.numDocumento = line.substring(110, 120);
     if (
       _body.numDocumento == "" ||
@@ -569,7 +628,7 @@ exports.bradesco_analisarBody = function (index, line) {
             if (valorMoraDiaCalculado != _body.percentualJurosMora) {
               _body.erros.push({
                 descricao: `Linha ${index} - 161 a 173 Valor do juros de mora inválido! Valor do juros de mora no arquivo: 
-                ${valorJurosMora} - Valor de mora no sistema: ${valorMoraDiaCalculado}`,
+                ${valorJurosMora} - Valor de mora calculado no sistema: ${valorMoraDiaCalculado}`,
               });
             }
           }
@@ -675,6 +734,18 @@ exports.bradesco_analisarBody = function (index, line) {
         });
       }
 
+      var erro = validarCaracterEspecial(line);
+      if (erro.descricao != "")
+        _body.erros.push({
+          descricao: `Linha ${index} - ${erro.descricao}`,
+        });
+
+      var erroHexa = validarCaracterHexa(line);
+      if (erroHexa.descricao != "")
+        _body.erros.push({
+          descricao: `Linha ${index} - ${erroHexa.descricao}`,
+        });
+
       Rem_400_bradesco.body.push(_body);
     }
   }
@@ -708,8 +779,58 @@ exports.bradesco_analisarTrailler = function (index, line) {
     });
   }
 
+  var erro = validarCaracterEspecial(line);
+  if (erro.descricao != "")
+    _trailler.erros.push({
+      descricao: `Linha ${index} - ${erro.descricao}`,
+    });
+
+  var erroHexa = validarCaracterHexa(line);
+  if (erroHexa.descricao != "")
+    _trailler.erros.push({
+      descricao: `Linha ${index} - ${erroHexa.descricao}`,
+    });
+
   Rem_400_bradesco.trailler.push(_trailler);
 };
+
+//funcao para validar e retornar os erros
+
+//validando se a linha contem caracteres especiais
+function validarCaracterEspecial(line) {
+  let _erros = null;
+  _erros = Erros;
+  _erros.descricao = "";
+
+  var regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+  if (regex.test(line)) {
+    _erros.descricao = `Contem caracteres especiais inválidos!`;
+  }
+  return _erros;
+
+}
+
+//validando se a linha contem caracteres especiais
+function validarCaracterHexa(line) {
+  let _erros = null;
+  _erros = Erros;
+  _erros.descricao = "";
+  regex = /[0-9A-F]+/;
+
+  //  if (line == 0x0D || line == 0x0A || line == 0x0D) {
+  //    return _erros;
+  //  }
+
+  //regex ignorar caracter hexa cr lf
+  
+
+
+  if (regex.test(line)) {
+    _erros.descricao = `Contem caracteres hexadecimais inválidos!`;
+  }
+  return _erros;
+}
 
 exports.bradesco_getCnabAnalisado = function () {
   return Rem_400_bradesco;

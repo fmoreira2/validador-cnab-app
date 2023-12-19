@@ -63,6 +63,7 @@ function readFile(file) {
   return total;
 }
 
+//limpa barra de progresso
 function limpaBarCnab() {
   var elem = document.getElementById("BarCnab");
   elem.style.width = "0%";
